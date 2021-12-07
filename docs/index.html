@@ -18,6 +18,47 @@
 <body>
 
 
+  <main class="container mt-3">
+    <!-- Title -->
+    <div class="row mb-3">
+      <div class="col text-center">
+        <h1>Sistema recomendador basado en el contenido</h1>
+      </div>
+    </div>
+
+    <form id="calc_form">
+      <!-- Matrix input -->
+      <div class="row">
+        <div class="mb-3">
+          <label for="fileInput" class="form-label h4">Matriz de utilidad</label>
+          <input class="form-control" type="file" id="fileInput">
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="row">
+        <!-- Calculate button -->
+        <div class="col text-center">
+          <div class="mb-3">
+            <button class="btn btn-primary w-50" id="calculate_btn" type="submit">Calcular</button>
+          </div>
+        </div>
+        <div class="col text-center" id="downloadBtnContainer" hidden>
+          <div class="mb-3">
+            <button class="btn btn-primary w-25" id="downloadBtn" type="button">Descargar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+
+
+
+
+
+
+
 
 
   <script type="module" src="./js/index.js"></script>

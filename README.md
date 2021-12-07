@@ -1,2 +1,2 @@
 # KB-RecommenderSystem
-Sistema de recomendación basado en conocimiento. 
+Sistema de recomendación basado en el contenido. 
