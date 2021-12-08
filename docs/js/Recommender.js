@@ -42,4 +42,14 @@ export class Recommender {
   createTables() {
     return this.corpus.map(doc => this.getTable(doc));
   }
+
+  getTermMean(term) {
+    const tfIdfValues = this.corpus
+      .filter(({TF}) => TF.hasOwnProperty(term))
+      .map(({TF}) => TF[term] * this.IDF[term]);
+
+    return tfIdfValues.reduce((a, b) => a + b, 0) / tfIdfValues.length;
+  }
+
+
 }
