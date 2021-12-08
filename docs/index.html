@@ -18,7 +18,7 @@
 <body>
 
 
-  <main class="container mt-3">
+  <main class="container mt-3" id="mainContainer">
     <!-- Title -->
     <div class="row mb-3">
       <div class="col text-center">
@@ -36,33 +36,12 @@
       </div>
 
 
-
-      <!-- Results -->
-      <div class="row">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#resultOneCollapse">
-                Resultado 1
-              </button>
-            </h5>
-          </div>
-
-          <div id="resultOneCollapse" class="collapse" aria-labelledby="headingOne">
-            <div class="card-body" id="resultOneContainer">
-              Something
-            </div>
-          </div>
-        </div>
-      </div>
-
-
       <!-- Buttons -->
       <div class="row">
         <!-- Calculate button -->
         <div class="col text-center">
           <div class="mb-3">
-            <button class="btn btn-primary w-50" id="calculate_btn" type="submit">Calcular</button>
+            <button class="btn btn-primary w-50" id="calculateBtn" type="submit" hidden>Calcular</button>
           </div>
         </div>
         <div class="col text-center" id="downloadBtnContainer" hidden>
@@ -72,6 +51,19 @@
         </div>
       </div>
     </form>
+
+
+    <!-- Results -->
+    <div class="row">
+      <div class="col" id="resultsContainer">
+        
+      </div>
+    </div>
+
+
+
+
+
   </main>
 
 

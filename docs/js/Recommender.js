@@ -2,7 +2,12 @@ import { CorpusDocument } from "./Document.js";
 
 export class Recommender {
   constructor(textCorpus) {
-    if (textCorpus) this.loadCorpusFromText(textCorpus);
+    if (textCorpus) this.setup(textCorpus);
+  }
+
+  setup(textCorpus) {
+    this.loadCorpusFromText(textCorpus);
+    this.IDF = this.getIDF();
   }
 
 
@@ -12,7 +17,7 @@ export class Recommender {
       .map(docContent => new CorpusDocument(docContent));
   }
 
-  getIDF(doc) {
+  getIDF() {
     const terms = new Set(this.corpus.map(doc => Object.keys(doc.TF)).flat());
     
     const IDF = {};
@@ -23,5 +28,18 @@ export class Recommender {
     });
 
     return IDF;
+  }
+
+  getTable(doc) {
+    const table = Object.entries(doc.TF)
+      .map(([term, freq], i) => {
+        const idf = this.IDF[term];
+        return [term, freq, idf, freq * idf];
+      });
+    return table;
+  }
+
+  createTables() {
+    return this.corpus.map(doc => this.getTable(doc));
   }
 }
