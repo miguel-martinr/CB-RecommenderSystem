@@ -21,9 +21,10 @@ reader.onload = () => {
     colHeaders: ["Término", "TF", "IDF", "TF-IDF"],
   };
   const resultsContainer = document.getElementById('resultsContainer');
-  
+  resultsContainer.innerHTML = "";
   
   recommender.createTables().forEach((table, i) =>  {
+    table = table.map(([term, tf, idf, tfIdf]) => [term, tf, idf.toFixed(2), tfIdf.toFixed(2)]);
     const htmlTable = createTable(table, opts);
     resultsContainer.innerHTML += createTableCard(htmlTable, i + 1);
   });

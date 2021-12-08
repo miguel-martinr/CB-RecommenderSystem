@@ -85,7 +85,7 @@ export function removePunctuations(text, _punctuation) {
 }
 
 
-export const createTableCard = (table, id, prefix = 'Document ') => {
+export const createTableCard = (table, id, prefix = 'Documento ') => {
 
   const headerId = `heading${id}`;
   const collapseId = `table${id}Collapse`;

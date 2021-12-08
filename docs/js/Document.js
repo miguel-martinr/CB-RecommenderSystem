@@ -9,6 +9,7 @@ export class CorpusDocument {
   loadTextContent(textContent) {
     const terms = removePunctuations(textContent)
       .toLowerCase()
+      .trim() 
       .split(/\s+/);
 
     this.TF = {};
