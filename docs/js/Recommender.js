@@ -51,5 +51,26 @@ export class Recommender {
     return tfIdfValues.reduce((a, b) => a + b, 0) / tfIdfValues.length;
   }
 
+  sim(aIndex, bIndex) {
+
+    const a = this.corpus[aIndex];
+    const b = this.corpus[bIndex];
+
+    const commonTerms = Object.keys(this.IDF).filter(term => a.normalizedTF.hasOwnProperty(term) && b.normalizedTF.hasOwnProperty(term));
+
+    const dotProduct = commonTerms.map(term => a.normalizedTF[term] * b.normalizedTF[term]).reduce((sum, v) => sum + v, 0);
+    
+    let denomA = 0;
+    let denomB = 0;
+
+    commonTerms.forEach(term => {
+      denomA += a.normalizedTF[term] ** 2;
+      denomB += b.normalizedTF[term] ** 2;
+    });
+
+
+
+    return dotProduct / (Math.sqrt(denomA) * Math.sqrt(denomB));
+  }
 
 }
