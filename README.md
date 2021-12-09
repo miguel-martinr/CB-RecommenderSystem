@@ -76,6 +76,12 @@ Este método primero eliminará los siguiente signos de puntuación del document
 
 # **Ejemplos de uso**
 
+* [Corpus de prueba 1](https://github.com/cexposit/ull-gco/blob/main/examples-documents/documents-01.txt)
+  
+![Demo corpus 1](media/documents-1demo.gif)
 
 
+* [Corpus de prueba 2](https://github.com/cexposit/ull-gco/blob/main/examples-documents/documents-02.txt)
+  
+![Demo corpus 2](media/documents-2demo.gif)
 
