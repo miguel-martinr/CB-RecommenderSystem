@@ -66,12 +66,13 @@ export class Recommender {
   }
 
   getSimMatrix() {
-    const simMatrix = [];
+    const simMatrix = Array(this.corpus.length).fill(0).map(row => new Array(this.corpus.length).fill(0));
     
     for (let i = 0; i < this.corpus.length; i++) {
-      simMatrix.push([]);
-      for (let j = 0; j < i; j++) {
-        simMatrix[i].push(this.sim(i, j));
+      for (let j = 0; j <= i; j++) {
+        const ijSim = this.sim(i, j);
+        simMatrix[i][j] = ijSim;
+        simMatrix[j][i] = ijSim;
       }
     }
     return simMatrix;

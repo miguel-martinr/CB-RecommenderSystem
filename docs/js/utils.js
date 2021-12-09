@@ -85,7 +85,7 @@ export function removePunctuations(text, _punctuation) {
 }
 
 
-export const createTableCard = (table, id, prefix = 'Documento ') => {
+export const createTableCard = (table, id, title = 'Documento') => {
 
   const headerId = `heading${id}`;
   const collapseId = `table${id}Collapse`;
@@ -96,7 +96,7 @@ export const createTableCard = (table, id, prefix = 'Documento ') => {
     <div class="card-header" id="${headerId}">
       <h5 class="mb-0">
         <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#${collapseId}">
-          ${prefix}${id}
+          ${title}
         </button>
       </h5>
     </div>
