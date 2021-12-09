@@ -58,17 +58,18 @@ export class Recommender {
 
     const commonTerms = Object.keys(this.IDF).filter(term => a.normalizedTF.hasOwnProperty(term) && b.normalizedTF.hasOwnProperty(term));
 
-    const dotProduct = commonTerms.map(term => a.normalizedTF[term] * b.normalizedTF[term]).reduce((sum, v) => sum + v, 0);
-    
+    const aTfIdf = commonTerms.map(term => a.TF[term] * this.IDF[term]);
+    const bTfIdf = commonTerms.map(term => b.TF[term] * this.IDF[term]);
+
+    const dotProduct = aTfIdf.map((aValue, i) => aValue * bTfIdf[i]).reduce((sum, val) => sum + val, 0);
+
     let denomA = 0;
     let denomB = 0;
 
-    commonTerms.forEach(term => {
-      denomA += a.normalizedTF[term] ** 2;
-      denomB += b.normalizedTF[term] ** 2;
+    commonTerms.forEach((_, i) => {
+      denomA += aTfIdf[i] ** 2;
+      denomB += bTfIdf[i] ** 2;
     });
-
-
 
     return dotProduct / (Math.sqrt(denomA) * Math.sqrt(denomB));
   }
