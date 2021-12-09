@@ -43,26 +43,39 @@ export class Recommender {
     return this.corpus.map(doc => this.getTable(doc));
   }
 
+  getTermMean(term) {
+    const tfIdfValues = this.corpus
+      .filter(({TF}) => TF.hasOwnProperty(term))
+      .map(({TF}) => TF[term] * this.IDF[term]);
+
+    return tfIdfValues.reduce((a, b) => a + b, 0) / tfIdfValues.length;
+  }
+
   sim(aIndex, bIndex) {
-    
+
     const a = this.corpus[aIndex];
     const b = this.corpus[bIndex];
 
     const commonTerms = Object.keys(this.IDF).filter(term => a.normalizedTF.hasOwnProperty(term) && b.normalizedTF.hasOwnProperty(term));
 
-    const dotProduct = commonTerms.map(term => a.normalizedTF[term] * b.normalizedTF[term]).reduce((sum, v) => sum + v, 0);
+    const aNormTF = commonTerms.map(term => a.normalizedTF[term]);
+    const bNormTF = commonTerms.map(term => b.normalizedTF[term]);
+
+    const cosine = aNormTF.map((aTf, i) => aTf * bNormTF[i]).reduce((sum, v) => sum + v, 0);
+    return cosine;
+  }
+
+  getSimMatrix() {
+    const simMatrix = Array(this.corpus.length).fill(0).map(row => new Array(this.corpus.length).fill(0));
     
-    let denomA = 0;
-    let denomB = 0; 
-
-    commonTerms.forEach(term => {
-      denomA += a.normalizedTF[term] ** 2;
-      denomB += b.normalizedTF[term] ** 2;
-    });
-
-
-
-    return dotProduct / (Math.sqrt(denomA) * Math.sqrt(denomB));
+    for (let i = 0; i < this.corpus.length; i++) {
+      for (let j = 0; j <= i; j++) {
+        const ijSim = this.sim(i, j);
+        simMatrix[i][j] = ijSim;
+        simMatrix[j][i] = ijSim;
+      }
+    }
+    return simMatrix;
   }
 
 }

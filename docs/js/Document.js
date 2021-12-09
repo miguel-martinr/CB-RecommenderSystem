@@ -22,7 +22,7 @@ export class CorpusDocument {
   }
 
   loadNormalizedTF() {
-    const vectorLength = Object.values(this.TF).reduce((a, b) => a + b, 0);
+    const vectorLength = Math.sqrt(Object.values(this.TF).reduce((a, b) => a + b ** 2, 0));
 
     const normalizedTF = {...this.TF};
     Object.entries(normalizedTF).forEach(([term, tf]) => normalizedTF[term] = tf / vectorLength);
