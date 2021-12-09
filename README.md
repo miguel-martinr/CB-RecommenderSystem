@@ -32,4 +32,26 @@ El formato de corpus soportado es una `string` en la que cada línea representa 
 
 * **`createTables()`**: devuelve un array de matrices generadas para cada documento del corpus con el método `getTable(doc: CorpusDocument)`
 
+* **`sim(aIndex: int, bIndex: int)`**: devuelve la similitud entre los documentos con índice `aIndex` y `bIndex` dentro de `corpus`.
+
+
+## **`CorpusDocument`**
+Clase que representa un documento. Sus atributos son:
+
+* `TF`: objeto clave-valor (término - TF) para todos los términos que aparencen en el documento.
+* `normalizedTF`: objeto clave-valor (término - normalizedTF) para todos los términos que aparecen en el documento. 
+  
+Para calcular el valor normalizado primero se calcula la *longitud del vector*, esto es, la raíz cuadrada de la suma de los cuadrados de los valores de `TF` y posteriormente se divide cada valor de `TF` entre dicha longitud:
+
+```JavaScript
+  loadNormalizedTF() {
+    const vectorLength = Object.values(this.TF).reduce((a, b) => a + b, 0);
+
+    const normalizedTF = {...this.TF};
+    Object.entries(normalizedTF).forEach(([term, tf]) => normalizedTF[term] = tf / vectorLength);
+    this.normalizedTF = normalizedTF;
+  }
+```
+
+
 

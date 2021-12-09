@@ -43,16 +43,8 @@ export class Recommender {
     return this.corpus.map(doc => this.getTable(doc));
   }
 
-  getTermMean(term) {
-    const tfIdfValues = this.corpus
-      .filter(({TF}) => TF.hasOwnProperty(term))
-      .map(({TF}) => TF[term] * this.IDF[term]);
-
-    return tfIdfValues.reduce((a, b) => a + b, 0) / tfIdfValues.length;
-  }
-
   sim(aIndex, bIndex) {
-
+    
     const a = this.corpus[aIndex];
     const b = this.corpus[bIndex];
 
@@ -61,7 +53,7 @@ export class Recommender {
     const dotProduct = commonTerms.map(term => a.normalizedTF[term] * b.normalizedTF[term]).reduce((sum, v) => sum + v, 0);
     
     let denomA = 0;
-    let denomB = 0;
+    let denomB = 0; 
 
     commonTerms.forEach(term => {
       denomA += a.normalizedTF[term] ** 2;
