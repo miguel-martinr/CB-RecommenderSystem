@@ -22,7 +22,7 @@ Clase que representa el recomendador, contiene los siguientes atributos:
 
 
 * **`setup(textCorpus: string)`**: Crea los documentos a partir de `textCorpus` y calcula `IDF`.  
-El formato de corpus soportado es una `string` en la que cada línea representa un documento diferente.
+El formato de corpus soportado es una `string` en la que cada línea (separadas por `\n`) representa un documento diferente.
 
 * **`loadCorpusFromText(textCorpus: string)`**: convierte `textCorpus` en un vector de `CorpusDocument` y lo guarda en el atributo `corpus`
 
@@ -45,13 +45,37 @@ Para calcular el valor normalizado primero se calcula la *longitud del vector*, 
 
 ```JavaScript
   loadNormalizedTF() {
-    const vectorLength = Object.values(this.TF).reduce((a, b) => a + b, 0);
+    const vectorLength = Math.sqrt(Object
+      .values(this.TF)
+      .reduce((a, b) => a + b ** 2, 0));
 
     const normalizedTF = {...this.TF};
-    Object.entries(normalizedTF).forEach(([term, tf]) => normalizedTF[term] = tf / vectorLength);
+    Object
+      .entries(normalizedTF)
+      .forEach(([term, tf]) => normalizedTF[term] = tf / vectorLength);
+
     this.normalizedTF = normalizedTF;
   }
 ```
+
+
+### **Métodos**
+
+* **`constructor(textContent?: string)`**: si se le pasa `textContent` se llama a `setup(textContent)`
+
+
+* **`setup(textContent: string)`**: se encarga de cargar los términos con sus frecuencias absolutas y con sus frecuencias normalizadas.
+  
+* **`loadTextContent(textContent: string)`**: a partir de `textContent` genera un objeto clave - valor (término - TF) con la frecuencia absoluta para cada término que aparece en el documento y lo almacena en `TF`.
+
+Este método primero eliminará los siguiente signos de puntuación del documento: `!"#$%&\'()*+,-./:;<=>?@[\\]^_{|}~` y `, luego convertirá todas las palabras del documento a minúsculas, eliminará los espacios en blanco al principio y al final del documento y obtendrá los términos como aquellas palabras separadas por uno o más espacios en blanco.
+
+
+* **`loadNormalizedTF()`**: a partir de `TF` calcula los valores normalizados para cada término y los almacena en `normalizedTF`.  
+
+
+# **Ejemplos de uso**
+
 
 
 
