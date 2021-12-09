@@ -1,4 +1,4 @@
-# KB-RecommenderSystem
+# CB-RecommenderSystem
 Sistema de recomendación basado en el contenido. 
 
 
