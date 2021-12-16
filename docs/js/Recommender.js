@@ -24,7 +24,7 @@ export class Recommender {
     
     terms.forEach(term => {
       const dfx = this.corpus.filter(doc => doc.TF.hasOwnProperty(term)).length;
-      IDF[term] = Math.log(this.corpus.length / dfx);
+      IDF[term] = Math.log10(this.corpus.length / dfx);
     });
 
     return IDF;
