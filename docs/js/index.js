@@ -35,7 +35,7 @@ reader.onload = () => {
   recommender.createTables().forEach((table, i) =>  {
     table = table.map(([term, tf, idf, tfIdf]) => [term, tf, idf.toFixed(2), tfIdf.toFixed(2)]);
     const htmlTable = createTable(table, opts);
-    resultsContainer.innerHTML += createTableCard(htmlTable, i + 1, `Documento ${i}`);
+    resultsContainer.innerHTML += createTableCard(htmlTable, i + 1, `Documento ${i + 1}`);
   });
 
 
